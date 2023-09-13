@@ -39,7 +39,7 @@ type ServerOptions struct {
 	Handler               ServerHandler
 	MasqueradeHandler     http.Handler
 
-	JLSOptions *qtls.JLSOptions
+	JLS *qtls.JLSOptions
 }
 
 type User struct {
@@ -80,7 +80,7 @@ func NewServer(options ServerOptions) (*Server, error) {
 		MaxIdleTimeout:                 defaultMaxIdleTimeout,
 		KeepAlivePeriod:                defaultKeepAlivePeriod,
 	}
-	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+	qtls.InitJLSConfig(quicConfig, options.JLS)
 
 	if len(options.Users) == 0 {
 		return nil, E.New("missing users")

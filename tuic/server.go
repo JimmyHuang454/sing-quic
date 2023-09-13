@@ -36,7 +36,7 @@ type ServerOptions struct {
 	Heartbeat         time.Duration
 	Handler           ServerHandler
 
-	JLSOptions *qtls.JLSOptions
+	JLS *qtls.JLSOptions
 }
 
 type User struct {
@@ -79,7 +79,7 @@ func NewServer(options ServerOptions) (*Server, error) {
 		MaxIncomingStreams:      1 << 60,
 		MaxIncomingUniStreams:   1 << 60,
 	}
-	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+	qtls.InitJLSConfig(quicConfig, options.JLS)
 
 	switch options.CongestionControl {
 	case "":

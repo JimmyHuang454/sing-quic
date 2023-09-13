@@ -42,7 +42,7 @@ type ClientOptions struct {
 	TLSConfig          aTLS.Config
 	UDPDisabled        bool
 
-	JLSOptions *qtls.JLSOptions
+	JLS *qtls.JLSOptions
 }
 
 type Client struct {
@@ -72,7 +72,7 @@ func NewClient(options ClientOptions) (*Client, error) {
 		MaxIdleTimeout:                 defaultMaxIdleTimeout,
 		KeepAlivePeriod:                defaultKeepAlivePeriod,
 	}
-	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+	qtls.InitJLSConfig(quicConfig, options.JLS)
 
 	return &Client{
 		ctx:                options.Context,

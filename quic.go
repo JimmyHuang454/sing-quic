@@ -120,9 +120,9 @@ func ConfigureHTTP3(config aTLS.ServerConfig) error {
 }
 
 type JLSOptions struct {
-	UseJLS      bool
-	JLSPWD      []byte
-	JLSIV       []byte
+	Enabled     bool
+	PWD         []byte
+	IV          []byte
 	FallbackURL string
 }
 
@@ -130,8 +130,8 @@ func InitJLSConfig(c *quic.Config, j *JLSOptions) {
 	if j == nil {
 		return
 	}
-	quic.Config.UseJLS = j.UseJLS
-	quic.Config.JLSIV = j.JLSIV
-	quic.Config.JLSPWD = j.JLSPWD
-	quic.Config.FallbackURL = j.FallbackURL
+	c.UseJLS = j.Enabled
+	c.JLSIV = j.IV
+	c.JLSPWD = j.PWD
+	c.FallbackURL = j.FallbackURL
 }
