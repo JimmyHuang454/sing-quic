@@ -41,6 +41,8 @@ type ClientOptions struct {
 	Password           string
 	TLSConfig          aTLS.Config
 	UDPDisabled        bool
+
+	JLSOptions *qtls.JLSOptions
 }
 
 type Client struct {
@@ -70,6 +72,8 @@ func NewClient(options ClientOptions) (*Client, error) {
 		MaxIdleTimeout:                 defaultMaxIdleTimeout,
 		KeepAlivePeriod:                defaultKeepAlivePeriod,
 	}
+	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+
 	return &Client{
 		ctx:                options.Context,
 		dialer:             options.Dialer,

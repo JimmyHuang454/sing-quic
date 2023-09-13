@@ -31,6 +31,8 @@ type ClientOptions struct {
 	UDPStream         bool
 	ZeroRTTHandshake  bool
 	Heartbeat         time.Duration
+
+	JLSOptions *qtls.JLSOptions
 }
 
 type Client struct {
@@ -60,6 +62,8 @@ func NewClient(options ClientOptions) (*Client, error) {
 		EnableDatagrams:         true,
 		MaxIncomingUniStreams:   1 << 60,
 	}
+	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+
 	switch options.CongestionControl {
 	case "":
 		options.CongestionControl = "cubic"

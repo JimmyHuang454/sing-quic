@@ -38,6 +38,8 @@ type ServerOptions struct {
 	UDPDisabled           bool
 	Handler               ServerHandler
 	MasqueradeHandler     http.Handler
+
+	JLSOptions *qtls.JLSOptions
 }
 
 type User struct {
@@ -78,6 +80,8 @@ func NewServer(options ServerOptions) (*Server, error) {
 		MaxIdleTimeout:                 defaultMaxIdleTimeout,
 		KeepAlivePeriod:                defaultKeepAlivePeriod,
 	}
+	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+
 	if len(options.Users) == 0 {
 		return nil, E.New("missing users")
 	}

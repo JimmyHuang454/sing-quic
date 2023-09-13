@@ -118,3 +118,20 @@ func ConfigureHTTP3(config aTLS.ServerConfig) error {
 	http3.ConfigureTLSConfig(tlsConfig)
 	return nil
 }
+
+type JLSOptions struct {
+	UseJLS      bool
+	JLSPWD      []byte
+	JLSIV       []byte
+	FallbackURL string
+}
+
+func InitJLSConfig(c *quic.Config, j *JLSOptions) {
+	if j == nil {
+		return
+	}
+	quic.Config.UseJLS = j.UseJLS
+	quic.Config.JLSIV = j.JLSIV
+	quic.Config.JLSPWD = j.JLSPWD
+	quic.Config.FallbackURL = j.FallbackURL
+}

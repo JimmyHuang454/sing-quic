@@ -35,6 +35,8 @@ type ServerOptions struct {
 	ZeroRTTHandshake  bool
 	Heartbeat         time.Duration
 	Handler           ServerHandler
+
+	JLSOptions *qtls.JLSOptions
 }
 
 type User struct {
@@ -77,6 +79,8 @@ func NewServer(options ServerOptions) (*Server, error) {
 		MaxIncomingStreams:      1 << 60,
 		MaxIncomingUniStreams:   1 << 60,
 	}
+	qtls.InitJLSConfig(quicConfig, options.JLSOptions)
+
 	switch options.CongestionControl {
 	case "":
 		options.CongestionControl = "cubic"
