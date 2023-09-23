@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"runtime"
-	"strings"
 	"sync"
 
 	"github.com/sagernet/quic-go"
@@ -20,6 +19,7 @@ import (
 	"github.com/sagernet/sing/common/auth"
 	"github.com/sagernet/sing/common/baderror"
 	E "github.com/sagernet/sing/common/exceptions"
+	"github.com/sagernet/sing/common/format"
 	"github.com/sagernet/sing/common/logger"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"
@@ -130,7 +130,7 @@ func (s *Service[U]) loopConnections(listener qtls.Listener) {
 	for {
 		connection, err := listener.Accept(s.ctx)
 		if err != nil {
-			if strings.Contains(err.Error(), "server closed") {
+			if E.IsClosedOrCanceled(err) {
 				s.logger.Debug(E.Cause(err, "listener closed"))
 			} else {
 				s.logger.Error(E.Cause(err, "listener closed"))
@@ -198,6 +198,7 @@ func (s *serverSession[U]) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			} else {
 				sendBps = request.Rx
 			}
+			format.ToString(1024 * 1024)
 			s.quicConn.SetCongestionControl(hyCC.NewBrutalSender(sendBps))
 		} else {
 			s.quicConn.SetCongestionControl(congestion.NewBBRSender(
