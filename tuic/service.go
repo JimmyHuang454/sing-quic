@@ -33,7 +33,7 @@ type ServiceOptions struct {
 	AuthTimeout       time.Duration
 	ZeroRTTHandshake  bool
 	Heartbeat         time.Duration
-	Handler           ServerHandler
+	Handler           ServiceHandler
 
 	JLS *qtls.JLSOptions
 }

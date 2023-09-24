@@ -12,12 +12,12 @@ require (
 )
 
 require (
-	github.com/JimmyHuang454/JLS-go v0.0.0-20230831150107-90d536585ba0 // indirect
-	github.com/JimmyHuang454/qtls-go1-20-JLS v0.0.0-20230909050831-219b978e3919 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
-	github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 // indirect
-	github.com/onsi/ginkgo/v2 v2.9.5 // indirect
+	github.com/google/pprof v0.0.0-20230912144702-c363fe2c2ed8 // indirect
+	github.com/onsi/ginkgo/v2 v2.12.1 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
+	github.com/quic-go/qtls-go1-20 v0.3.4 // indirect
+	github.com/stretchr/testify v1.8.4 // indirect
 	golang.org/x/net v0.15.0 // indirect
 	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
